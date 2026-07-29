@@ -25,6 +25,27 @@ final class Inline_Woo_AI_Service {
 	);
 
 	/**
+	 * Prompt-builder factory.
+	 *
+	 * The production default delegates to wp_ai_client_prompt(). Tests may inject
+	 * a deterministic in-memory builder so no provider or network request is used.
+	 *
+	 * @var callable
+	 */
+	private $prompt_factory;
+
+	/**
+	 * Constructor.
+	 *
+	 * @param callable|null $prompt_factory Optional prompt-builder factory.
+	 */
+	public function __construct( ?callable $prompt_factory = null ) {
+		$this->prompt_factory = $prompt_factory ?: static function ( string $prompt ) {
+			return wp_ai_client_prompt( $prompt );
+		};
+	}
+
+	/**
 	 * Return supported task labels.
 	 *
 	 * @return array<string, string>
@@ -71,7 +92,7 @@ final class Inline_Woo_AI_Service {
 
 		// Avoid forcing optional model parameters. WordPress may select a text
 		// model that does not support settings such as temperature.
-		$builder = wp_ai_client_prompt( $prompt )
+		$builder = call_user_func( $this->prompt_factory, $prompt )
 			->using_system_instruction( $this->get_system_instruction() );
 
 		if ( method_exists( $builder, 'is_supported_for_text_generation' ) && ! $builder->is_supported_for_text_generation() ) {
