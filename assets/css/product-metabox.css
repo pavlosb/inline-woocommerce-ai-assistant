@@ -1,0 +1,25 @@
+.inline-woo-ai select,
+.inline-woo-ai textarea {
+	margin-top: 6px;
+}
+
+.inline-woo-ai textarea {
+	font-family: Consolas, Monaco, monospace;
+	font-size: 12px;
+	line-height: 1.5;
+	resize: vertical;
+}
+
+.inline-woo-ai .spinner {
+	float: none;
+	margin: 4px 0 0 4px;
+}
+
+.inline-woo-ai-status {
+	margin-bottom: 0;
+	min-height: 18px;
+}
+
+.inline-woo-ai-status.is-error {
+	color: #b32d2e;
+}
