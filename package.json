@@ -10,7 +10,7 @@
     "test:php": "wp-env run cli --env-cwd=wp-content/plugins/inline-woocommerce-ai-assistant phpunit -- --configuration phpunit.xml.dist"
   },
   "devDependencies": {
-    "@wordpress/env": "latest"
+    "@wordpress/env": "11.11.0"
   },
   "engines": {
     "node": ">=22"
