@@ -69,11 +69,20 @@ final class Inline_Woo_AI_Service {
 		$context = $this->build_product_context( $product );
 		$prompt  = $this->build_prompt( $task, $context );
 
-		$result = wp_ai_client_prompt( $prompt )
-			->using_system_instruction( $this->get_system_instruction() )
-			->using_temperature( 0.2 )
-			->using_max_tokens( 1200 )
-			->generate_text();
+		// Avoid forcing optional model parameters. WordPress may select a text
+		// model that does not support settings such as temperature.
+		$builder = wp_ai_client_prompt( $prompt )
+			->using_system_instruction( $this->get_system_instruction() );
+
+		if ( method_exists( $builder, 'is_supported_for_text_generation' ) && ! $builder->is_supported_for_text_generation() ) {
+			return new WP_Error(
+				'inline_woo_ai_text_generation_unsupported',
+				__( 'No configured AI model supports this text-generation request.', 'inline-woocommerce-ai-assistant' ),
+				array( 'status' => 503 )
+			);
+		}
+
+		$result = $builder->generate_text();
 
 		if ( is_wp_error( $result ) ) {
 			return $result;
