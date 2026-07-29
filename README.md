@@ -57,6 +57,7 @@ Configured WordPress AI provider connector
 ## Development
 
 Repository-specific Codex guidance is provided in `AGENTS.md`.
+Run integration tests with `npm run test:php`.
 
 ## Testing
 
