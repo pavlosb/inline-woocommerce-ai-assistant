@@ -4,7 +4,7 @@ Tags: woocommerce, artificial intelligence, ai, product descriptions, content
 Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,13 +49,18 @@ No. Provider credentials are managed by the WordPress Connectors API.
 
 = Does it automatically overwrite product content? =
 
-No. Version 0.1.0 only generates a reviewable draft and provides a copy button.
+No. Version 0.1.1 only generates a reviewable draft and provides a copy button.
 
 = Does it send order or customer data to an AI provider? =
 
 No. The generation service is limited to selected product catalogue fields.
 
 == Changelog ==
+
+= 0.1.1 =
+
+* Removed forced temperature and token parameters for compatibility with automatically selected AI models.
+* Added a text-generation support check before sending the request.
 
 = 0.1.0 =
 
