@@ -4,17 +4,17 @@ Tags: woocommerce, artificial intelligence, ai, product descriptions, content
 Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.1.1
+Stable tag: 0.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Generate reviewable WooCommerce product-content drafts through the native WordPress AI Client.
+Generate, compare, apply, audit, and undo WooCommerce product-content drafts through the native WordPress AI Client.
 
 == Description ==
 
 INLINE WooCommerce AI Assistant adds an administrator-only assistant to the WooCommerce product editor.
 
-The initial version can generate draft suggestions for:
+It can generate draft suggestions for:
 
 * Short descriptions.
 * Full descriptions.
@@ -24,7 +24,9 @@ The initial version can generate draft suggestions for:
 
 The plugin uses the provider-independent WordPress AI Client introduced in WordPress 7.0. Provider installation, selection, and API credentials remain under Settings > Connectors.
 
-Generated content is displayed for review and copying. It is not automatically written to the product.
+Generation never changes product data. A generated value is stored temporarily on the server and shown beside the current target field. Applying requires explicit confirmation, uses WooCommerce CRUD or product-tag taxonomy APIs, and records the prior and applied values in protected product audit history.
+
+Undo is available for seven days when the target field has not been edited since the AI suggestion was applied. Stale drafts and conflicting undo requests fail without overwriting product data.
 
 == Requirements ==
 
@@ -49,13 +51,30 @@ No. Provider credentials are managed by the WordPress Connectors API.
 
 = Does it automatically overwrite product content? =
 
-No. Version 0.1.1 only generates a reviewable draft and provides a copy button.
+No. Generation is read-only. Applying a server-stored suggestion requires a visible confirmation.
+
+= Can an AI apply overwrite a later manual edit? =
+
+No. Apply rejects drafts generated from an older field value, and Undo refuses to overwrite a field that changed after the AI apply operation.
+
+= Where are benefits and FAQs applied? =
+
+They replace the WooCommerce full description. The target field is displayed before confirmation.
 
 = Does it send order or customer data to an AI provider? =
 
 No. The generation service is limited to selected product catalogue fields.
 
 == Changelog ==
+
+= 0.2.0 =
+
+* Added current/generated field comparison and explicit Apply confirmation.
+* Added server-side pending suggestion IDs with a 24-hour expiry.
+* Added task-specific HTML sanitization and product-tag parsing.
+* Added protected product audit history with user, timestamp, and provider/model metadata when available.
+* Added conflict-safe Undo with a seven-day window.
+* Added stale-draft, expired-record, permission, sanitization, tags, apply, history, and undo integration tests.
 
 = 0.1.1 =
 

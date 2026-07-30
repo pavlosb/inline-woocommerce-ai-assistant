@@ -28,8 +28,10 @@ final class Inline_Woo_AI_Plugin {
 		}
 
 		$ai_service      = new Inline_Woo_AI_Service();
-		$rest_controller = new Inline_Woo_AI_REST_Controller( $ai_service );
-		$product_metabox = new Inline_Woo_AI_Product_Metabox();
+		$suggestion_store = new Inline_Woo_AI_Suggestion_Store();
+		$content_service  = new Inline_Woo_AI_Product_Content_Service( $suggestion_store );
+		$rest_controller  = new Inline_Woo_AI_REST_Controller( $ai_service, $suggestion_store, $content_service );
+		$product_metabox  = new Inline_Woo_AI_Product_Metabox();
 
 		$rest_controller->register_hooks();
 		$product_metabox->register_hooks();
