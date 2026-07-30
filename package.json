@@ -7,7 +7,7 @@
     "env:start": "wp-env start --update",
     "env:stop": "wp-env stop",
     "env:destroy": "wp-env destroy --force",
-    "test:php": "wp-env run cli --env-cwd=wp-content/plugins/inline-woocommerce-ai-assistant phpunit -- --configuration phpunit.xml.dist"
+    "test:php": "wp-env run cli --env-cwd=wp-content/plugins/inline-woocommerce-ai-assistant vendor/bin/phpunit -- --configuration phpunit.xml.dist"
   },
   "devDependencies": {
     "@wordpress/env": "11.11.0"
