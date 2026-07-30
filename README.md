@@ -57,6 +57,13 @@ Configured WordPress AI provider connector
 ## Development
 
 Repository-specific Codex guidance is provided in `AGENTS.md`.
+Run integration tests with `npm run test:php`.
+
+## Testing
+
+The repository includes a wp-env integration suite pinned to WordPress 7.0.2 and WooCommerce 10.9.4. It runs on PHP 7.4 and 8.3 without provider credentials or external AI calls.
+
+See [`docs/testing.md`](docs/testing.md) for local commands and coverage details.
 
 ## License
 

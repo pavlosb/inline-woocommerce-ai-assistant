@@ -53,12 +53,14 @@ final class Inline_Woo_AI_REST_Controller {
 					'id'   => array(
 						'required'          => true,
 						'type'              => 'integer',
+						'validate_callback' => 'rest_validate_request_arg',
 						'sanitize_callback' => 'absint',
 					),
 					'task' => array(
 						'required'          => true,
 						'type'              => 'string',
 						'enum'              => array_keys( $this->ai_service->get_tasks() ),
+						'validate_callback' => 'rest_validate_request_arg',
 						'sanitize_callback' => 'sanitize_key',
 					),
 				),

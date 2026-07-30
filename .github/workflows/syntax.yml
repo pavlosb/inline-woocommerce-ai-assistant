@@ -1,10 +1,17 @@
-name: Syntax checks
+name: Checks
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
   push:
     branches:
       - main
+      - 'feature/**'
+      - 'hotfix/**'
 
 permissions:
   contents: read
@@ -22,7 +29,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -39,7 +46,62 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          package-manager-cache: false
 
       - name: Check JavaScript syntax
         run: node --check assets/js/product-metabox.js
+
+  integration:
+    name: WordPress 7.0.2 / WooCommerce 10.9.4 / PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - '7.4'
+          - '8.3'
+
+    env:
+      WP_ENV_PHP_VERSION: ${{ matrix.php }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          package-manager-cache: false
+
+      - name: Install PHP test dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Install wp-env
+        run: npm install --no-audit --no-fund
+
+      - name: Start WordPress test environment
+        run: npm run env:start
+
+      - name: Run PHPUnit integration tests
+        run: npm run test:php
+
+      - name: Destroy test environment
+        if: always()
+        continue-on-error: true
+        run: npm run env:destroy
