@@ -15,6 +15,23 @@
 	margin: 4px 0 0 4px;
 }
 
+.inline-woo-ai-result label {
+	display: block;
+	margin-top: 12px;
+}
+
+.inline-woo-ai-target {
+	background: #f6f7f7;
+	border-left: 4px solid #2271b1;
+	padding: 8px 10px;
+}
+
+.inline-woo-ai-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
 .inline-woo-ai-status {
 	margin-bottom: 0;
 	min-height: 18px;
@@ -22,4 +39,38 @@
 
 .inline-woo-ai-status.is-error {
 	color: #b32d2e;
+}
+
+.inline-woo-ai-history ul {
+	margin: 0;
+}
+
+.inline-woo-ai-history li {
+	border-top: 1px solid #dcdcde;
+	margin: 0;
+	padding: 10px 0;
+}
+
+.inline-woo-ai-history li:first-child {
+	border-top: 0;
+	padding-top: 0;
+}
+
+.inline-woo-ai-history li > strong,
+.inline-woo-ai-history li > small,
+.inline-woo-ai-history li > div {
+	display: block;
+	margin-bottom: 4px;
+}
+
+.inline-woo-ai-history li > div {
+	color: #50575e;
+	font-size: 12px;
+	line-height: 1.4;
+	max-height: 52px;
+	overflow: hidden;
+}
+
+.inline-woo-ai-history .button-small {
+	margin-top: 4px;
 }
