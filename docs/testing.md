@@ -15,6 +15,7 @@ The versions are defined in `.wp-env.json` and the workflow matrix.
 - Docker Desktop or Docker Engine
 - Node.js 22 or newer
 - npm
+- Composer 2
 
 ## Run locally
 
@@ -22,6 +23,7 @@ From the repository root:
 
 ```bash
 npm install
+composer install
 npm run env:start
 npm run test:php
 ```
@@ -42,7 +44,7 @@ npm run env:destroy
 
 The suite verifies:
 
-- administrator and shop-manager access;
+- administrator and shop-manager generation access;
 - denial without `manage_woocommerce`;
 - object-level product edit permission;
 - invalid products and generation tasks;
@@ -52,8 +54,20 @@ The suite verifies:
 - the approved product-only context boundary;
 - taxonomy attribute lookup failures;
 - long-description truncation;
-- real WordPress REST route validation and response handling.
+- real WordPress REST route validation and response handling;
+- mutation permission denial;
+- server-side pending suggestion IDs;
+- task-specific HTML sanitization;
+- stale-draft rejection;
+- WooCommerce short/full description writes;
+- product-tag parsing, replacement, and restoration;
+- audit history including provider/model metadata when supplied;
+- exact undo restoration;
+- undo conflict protection after a manual edit;
+- expired pending suggestions and expired audit records.
 
 ## AI isolation
 
 `Inline_Woo_AI_Service` accepts an optional prompt-builder factory. Production code does not pass one, so it continues to call `wp_ai_client_prompt()`. Tests inject `Inline_Woo_AI_Test_Prompt_Builder`, which captures the prompt and returns a configured result entirely in memory.
+
+Apply and Undo tests do not call the AI service. They create pending suggestions directly in the protected server-side store and exercise real WooCommerce CRUD, product-tag taxonomy APIs, product meta, and WordPress REST routing.
