@@ -5,7 +5,21 @@
  * @package Inline_Woo_AI
  */
 
-$_tests_dir = getenv( 'WP_TESTS_DIR' );
+$plugin_root     = dirname( __DIR__ );
+$autoload_path   = $plugin_root . '/vendor/autoload.php';
+$polyfills_path  = $plugin_root . '/vendor/yoast/phpunit-polyfills';
+$_tests_dir      = getenv( 'WP_TESTS_DIR' );
+
+if ( ! file_exists( $autoload_path ) ) {
+	fwrite( STDERR, "Composer dependencies are missing. Run composer install before the tests.\n" );
+	exit( 1 );
+}
+
+require_once $autoload_path;
+
+if ( ! defined( 'WP_TESTS_PHPUNIT_POLYFILLS_PATH' ) ) {
+	define( 'WP_TESTS_PHPUNIT_POLYFILLS_PATH', $polyfills_path );
+}
 
 if ( ! $_tests_dir ) {
 	$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
