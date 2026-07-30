@@ -37,6 +37,8 @@ tests_add_filter(
 	static function (): void {
 		require_once WP_PLUGIN_DIR . '/woocommerce/woocommerce.php';
 		require_once dirname( __DIR__ ) . '/includes/class-ai-service.php';
+		require_once dirname( __DIR__ ) . '/includes/class-suggestion-store.php';
+		require_once dirname( __DIR__ ) . '/includes/class-product-content-service.php';
 		require_once dirname( __DIR__ ) . '/includes/class-rest-controller.php';
 		require_once __DIR__ . '/includes/class-test-prompt-builder.php';
 	}
