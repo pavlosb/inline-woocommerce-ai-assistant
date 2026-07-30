@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -46,7 +46,13 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          package-manager-cache: false
 
       - name: Check JavaScript syntax
         run: node --check assets/js/product-metabox.js
@@ -68,14 +74,25 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
+          package-manager-cache: false
 
-      - name: Install test tooling
+      - name: Install PHP test dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Install wp-env
         run: npm install --no-audit --no-fund
 
       - name: Start WordPress test environment
@@ -86,4 +103,5 @@ jobs:
 
       - name: Destroy test environment
         if: always()
+        continue-on-error: true
         run: npm run env:destroy
