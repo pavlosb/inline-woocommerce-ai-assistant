@@ -65,7 +65,6 @@ jobs:
 
     env:
       WP_ENV_PHP_VERSION: ${{ matrix.php }}
-      WP_ENV_HOME: ${{ runner.temp }}/wp-env
 
     steps:
       - name: Check out repository
