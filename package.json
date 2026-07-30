@@ -1,6 +1,6 @@
 {
   "name": "inline-woocommerce-ai-assistant",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "description": "Development and integration-test tooling for INLINE WooCommerce AI Assistant.",
   "scripts": {
