@@ -4,7 +4,7 @@ A provider-independent AI product-content assistant for WooCommerce, built on th
 
 ## Status
 
-Version 0.2.0 adds a controlled single-product apply workflow with server-side suggestion IDs, field comparison, audit history, and conflict-safe undo.
+Version 0.2.1 adds explicit Greek (el-GR) generation on top of the controlled single-product apply workflow.
 
 ## Principles
 
@@ -18,7 +18,7 @@ Version 0.2.0 adds a controlled single-product apply workflow with server-side s
 ## Current scope
 
 - Product-editor assistant metabox.
-- Generate a short description, full description, benefits, FAQs, or tags.
+- Generate a short description, full description, benefits, FAQs, or tags in Greek (el-GR) by default.
 - Use current WooCommerce product data as controlled context.
 - Compare the current field value with the generated value.
 - Apply only a server-stored, non-expired suggestion after confirmation.
@@ -50,6 +50,8 @@ Product audit history + conflict-safe undo (7-day window)
 Generation path:
 Product context → WordPress AI Client → configured provider connector
 ```
+
+Generation explicitly targets natural, professional Greek while preserving brand names, product names, model identifiers, SKUs, standards, software names, protocol names, and established technical terms when appropriate.
 
 Generation and mutation are separate requests. The browser receives a suggestion ID, not authority to submit an arbitrary replacement value. Apply and Undo resolve their values from protected product metadata on the server.
 
