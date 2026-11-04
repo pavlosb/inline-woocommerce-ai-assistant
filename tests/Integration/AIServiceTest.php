@@ -189,7 +189,23 @@ final class Inline_Woo_AI_AI_Service_Test extends WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'customer', $context );
 		$this->assertArrayNotHasKey( 'order', $context );
 		$this->assertArrayNotHasKey( 'billing_email', $context );
+		$this->assertSame( 'el-GR', $context['language'] );
 		$this->assertStringNotContainsString( 'private-customer@example.test', $this->builder->prompt );
+	}
+
+	/**
+	 * Generation explicitly targets Greek while preserving technical identifiers.
+	 *
+	 * @return void
+	 */
+	public function test_generation_explicitly_targets_greek(): void {
+		$this->service->generate( $this->product_id, 'short_description' );
+
+		$this->assertStringContainsString( 'Target language: Greek (el-GR).', $this->builder->prompt );
+		$this->assertStringContainsString( 'natural, professional Greek', $this->builder->prompt );
+		$this->assertStringContainsString( 'model numbers, SKUs, standards', $this->builder->prompt );
+		$this->assertStringContainsString( 'Always produce the requested content in Greek (el-GR)', $this->builder->system_instruction );
+		$this->assertStringContainsString( 'Preserve brand names, trademarks, product names', $this->builder->system_instruction );
 	}
 
 	/**
