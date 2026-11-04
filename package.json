@@ -1,6 +1,6 @@
 {
   "name": "inline-woocommerce-ai-assistant",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "Development and integration-test tooling for INLINE WooCommerce AI Assistant.",
   "scripts": {
@@ -10,9 +10,9 @@
     "test:php": "wp-env run cli --env-cwd=wp-content/plugins/inline-woocommerce-ai-assistant vendor/bin/phpunit -- --configuration phpunit.xml.dist"
   },
   "devDependencies": {
-    "@wordpress/env": "11.11.0"
+    "@wordpress/env": "12.0.0"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.13.0"
   }
 }
