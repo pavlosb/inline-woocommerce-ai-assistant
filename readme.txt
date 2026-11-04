@@ -4,7 +4,7 @@ Tags: woocommerce, artificial intelligence, ai, product descriptions, content
 Requires at least: 7.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 0.2.0
+Stable tag: 0.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ It can generate draft suggestions for:
 * Product FAQs.
 * Product tags.
 
-The plugin uses the provider-independent WordPress AI Client introduced in WordPress 7.0. Provider installation, selection, and API credentials remain under Settings > Connectors.
+The plugin uses the provider-independent WordPress AI Client introduced in WordPress 7.0. Provider installation, selection, and API credentials remain under Settings > Connectors. Generated editorial content defaults explicitly to Greek (el-GR), while brand names, product names, model identifiers, SKUs, standards, software names, protocol names, and established technical terms are preserved when appropriate.
 
 Generation never changes product data. A generated value is stored temporarily on the server and shown beside the current target field. Applying requires explicit confirmation, uses WooCommerce CRUD or product-tag taxonomy APIs, and records the prior and applied values in protected product audit history.
 
@@ -49,6 +49,10 @@ Undo is available for seven days when the target field has not been edited since
 
 No. Provider credentials are managed by the WordPress Connectors API.
 
+= What language does it generate? =
+
+Version 0.2.1 explicitly generates editorial content in Greek (el-GR). Brand names and technical identifiers remain unchanged when appropriate.
+
 = Does it automatically overwrite product content? =
 
 No. Generation is read-only. Applying a server-stored suggestion requires a visible confirmation.
@@ -66,6 +70,12 @@ They replace the WooCommerce full description. The target field is displayed bef
 No. The generation service is limited to selected product catalogue fields.
 
 == Changelog ==
+
+= 0.2.1 =
+
+* Made Greek (el-GR) the explicit default generation language.
+* Added prompt rules to preserve brand names, model identifiers, SKUs, standards, software names, protocol names, and established technical terms when appropriate.
+* Added integration coverage for the explicit Greek generation contract.
 
 = 0.2.0 =
 
