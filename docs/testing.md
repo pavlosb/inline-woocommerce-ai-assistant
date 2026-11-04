@@ -13,7 +13,7 @@ The versions are defined in `.wp-env.json` and the workflow matrix.
 ## Local requirements
 
 - Docker Desktop or Docker Engine
-- Node.js 22 or newer
+- Node.js 22.13 or newer
 - npm
 - Composer 2
 
